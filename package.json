@@ -14,7 +14,9 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.5.0",
     "@prisma/client": "^7.5.0",
+    "better-sqlite3": "^12.8.0",
     "fastify": "^5.8.2"
   },
   "devDependencies": {
