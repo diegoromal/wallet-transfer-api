@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    container_name: picpay-backend
+    ports:
+      - "3333:3333"
+    volumes:
+      - sqlite_data:/app/prisma
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:
