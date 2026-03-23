@@ -1,12 +1,12 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { TransferDTO } from "../dtos/transfer.dto";
-import { TransferService } from "../services/transfer.service";
-import { UserRepository } from "../repositories/user.repository";
-import { WalletRepository } from "../repositories/wallet.repository";
-import { TransferRepository } from "../repositories/transfer.repository";
-import { AuthorizationGateway } from "../gateways/authorization.gateway";
-import { NotificationGateway } from "../gateways/notification.gateway";
-import { AppError } from "../errors/app-error";
+import { TransferDTO } from "../dtos/transfer.dto.js";
+import { TransferService } from "../services/transfer.service.js";
+import { UserRepository } from "../repositories/user.repository.js";
+import { WalletRepository } from "../repositories/wallet.repository.js";
+import { TransferRepository } from "../repositories/transfer.repository.js";
+import { AuthorizationGateway } from "../gateways/authorization.gateway.js";
+import { NotificationGateway } from "../gateways/notification.gateway.js";
+import { AppError } from "../errors/app-error.js";
 
 export async function transferController(
   request: FastifyRequest,
@@ -38,7 +38,7 @@ export async function transferController(
     });
 
     return reply.status(200).send(result);
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof AppError) {
       return reply.status(error.statusCode).send({
         message: error.message,

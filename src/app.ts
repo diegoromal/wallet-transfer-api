@@ -1,5 +1,5 @@
 import Fastify from "fastify"
-import { transferRoutes } from "./routes/transfer.routes";
+import { transferRoutes } from "./routes/transfer.routes.js";
 
 export function buildApp() {
     const app = Fastify()
