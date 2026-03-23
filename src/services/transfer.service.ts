@@ -83,7 +83,11 @@ export class TransferService {
       return transfer;
     });
 
-    await this.notificationGateway.send();
+    try {
+      await this.notificationGateway.send();
+    } catch (error: unknown) {
+      console.error("Falha ao enviar notificação:", error);
+    }
 
     return {
       message: "Transferência realizada com sucesso.",

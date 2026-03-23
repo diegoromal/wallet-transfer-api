@@ -1,8 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { TransferService } from "../src/services/transfer.service";
-import { AppError } from "../src/errors/app-error";
-import { UserType } from "../src/generated/prisma/enums";
-import { prisma } from "../src/lib/prisma";
+import { TransferService } from "../src/services/transfer.service.js";
+import { AppError } from "../src/errors/app-error.js";
+import { UserType } from "../src/generated/prisma/enums.js";
 
 vi.mock("../src/lib/prisma", () => {
   return {
@@ -189,4 +188,40 @@ describe("TransferService", () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it("deve realizar a transferência mesmo se a notificação falhar", async () => {
+  userRepository.findByIdWithWallet
+    .mockResolvedValueOnce({
+      id: 1,
+      type: UserType.COMMON,
+      wallet: { balance: 1000 },
+    })
+    .mockResolvedValueOnce({
+      id: 2,
+      type: UserType.COMMON,
+      wallet: { balance: 500 },
+    });
+
+  authorizationGateway.authorize.mockResolvedValue(true);
+
+  transferRepository.create.mockResolvedValue({
+    id: 1,
+    payerId: 1,
+    payeeId: 2,
+    amount: 100,
+  });
+
+  notificationGateway.send.mockRejectedValue(new Error("Notification failed"));
+
+  await expect(
+    transferService.execute({
+      value: 100,
+      payer: 1,
+      payee: 2,
+    })
+  ).resolves.toMatchObject({
+    message: "Transferência realizada com sucesso.",
+  });
+});
+
 });
