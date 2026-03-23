@@ -1,7 +1,7 @@
 {
-  "name": "desafio-picpay",
+  "name": "wallet-transfer-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Wallet transfer API challenge with Fastify, Prisma, SQLite, tests and Docker",
   "main": "index.js",
   "type": "module",
   "scripts": {
