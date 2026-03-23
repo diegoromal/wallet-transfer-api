@@ -3,7 +3,7 @@ import { PrismaClient } from "../src/generated/prisma/client.js";
 import { UserType } from "../src/generated/prisma/enums.js";
 
 const adapter = new PrismaBetterSqlite3({
-  url: process.env.DATABASE_URL || "file:./dev.db",
+  url: process.env.DATABASE_URL || "file:./prisma/dev.db",
 });
 
 const prisma = new PrismaClient({ adapter });
