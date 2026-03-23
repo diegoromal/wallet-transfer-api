@@ -1,5 +1,7 @@
 import { TransferDTO } from "../dtos/transfer.dto";
 import { AppError } from "../errors/app-error";
+import { AuthorizationGateway } from "../gateways/authorization.gateway";
+import { NotificationGateway } from "../gateways/notification.gateway";
 import { UserType } from "../generated/prisma/enums";
 import { prisma } from "../lib/prisma";
 import { TransferRepository } from "../repositories/transfer.repository";
@@ -43,6 +45,14 @@ export class TransferService {
     throw new AppError("Saldo insuficiente.", 422);
   }
 
+  const authorizationGateway = new AuthorizationGateway();
+
+  const isAuthorized = await authorizationGateway.authorize();
+
+  if (!isAuthorized) {
+    throw new AppError("Transferência não autorizada.", 403);
+  }
+
   const walletRepository = new WalletRepository();
   const transferRepository = new TransferRepository();
 
@@ -64,6 +74,10 @@ export class TransferService {
 
     return transfer;
   });
+
+  const notificationGateway = new NotificationGateway();
+
+  await notificationGateway.send();
 
   return {
     message: "Transferência realizada com sucesso.",
