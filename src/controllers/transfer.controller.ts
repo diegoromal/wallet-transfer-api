@@ -2,6 +2,10 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { TransferDTO } from "../dtos/transfer.dto";
 import { TransferService } from "../services/transfer.service";
 import { UserRepository } from "../repositories/user.repository";
+import { WalletRepository } from "../repositories/wallet.repository";
+import { TransferRepository } from "../repositories/transfer.repository";
+import { AuthorizationGateway } from "../gateways/authorization.gateway";
+import { NotificationGateway } from "../gateways/notification.gateway";
 import { AppError } from "../errors/app-error";
 
 export async function transferController(
@@ -19,8 +23,13 @@ export async function transferController(
       });
     }
 
-    const userRepository = new UserRepository();
-    const transferService = new TransferService(userRepository);
+    const transferService = new TransferService(
+      new UserRepository(),
+      new WalletRepository(),
+      new TransferRepository(),
+      new AuthorizationGateway(),
+      new NotificationGateway()
+    );
 
     const result = await transferService.execute({
       value,
