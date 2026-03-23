@@ -1,6 +1,6 @@
-# 💸 PicPay Backend Challenge
+# 💸 Backend Challenge
 
-Implementação do desafio backend proposto pela PicPay, com foco em boas práticas de arquitetura, consistência de dados, integrações externas, testes automatizados e execução com Docker.
+Implementação do desafio backend proposto, com foco em boas práticas de arquitetura, consistência de dados, integrações externas, testes automatizados e execução com Docker.
 
 ---
 

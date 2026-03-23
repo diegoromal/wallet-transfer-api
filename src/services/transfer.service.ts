@@ -1,12 +1,12 @@
-import { TransferDTO } from "../dtos/transfer.dto";
-import { AppError } from "../errors/app-error";
-import { AuthorizationGateway } from "../gateways/authorization.gateway";
-import { NotificationGateway } from "../gateways/notification.gateway";
-import { UserType } from "../generated/prisma/enums";
-import { prisma } from "../lib/prisma";
-import { TransferRepository } from "../repositories/transfer.repository";
-import { UserRepository } from "../repositories/user.repository";
-import { WalletRepository } from "../repositories/wallet.repository";
+import { TransferDTO } from "../dtos/transfer.dto.js";
+import { AppError } from "../errors/app-error.js";
+import { AuthorizationGateway } from "../gateways/authorization.gateway.js";
+import { NotificationGateway } from "../gateways/notification.gateway.js";
+import { UserType } from "../generated/prisma/enums.js";
+import { prisma } from "../lib/prisma.js";
+import { TransferRepository } from "../repositories/transfer.repository.js";
+import { UserRepository } from "../repositories/user.repository.js";
+import { WalletRepository } from "../repositories/wallet.repository.js";
 
 export class TransferService {
   constructor(
